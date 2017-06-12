@@ -158,7 +158,7 @@ namespace FStats.Entities
         [DisplayName("Betbrain average home win odds")]
         public double? BbAvH { get; set; }
 
-        [DisplayName("Betbrain maximum draw odds)]
+        [DisplayName("Betbrain maximum draw odds")]
         public double? BbMxD { get; set; }
 
         [DisplayName("Betbrain average draw win odds")]

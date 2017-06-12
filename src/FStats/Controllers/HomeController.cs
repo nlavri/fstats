@@ -29,6 +29,79 @@ namespace FStats.Controllers
         };
 
 
+        private readonly string[] StatsProps = new[]
+        {
+            nameof(Statistic.Fthg),
+            nameof(Statistic.Ftag),
+            nameof(Statistic.Ftr),
+            nameof(Statistic.Hthg),
+            nameof(Statistic.Htag),
+            nameof(Statistic.Htr),
+            nameof(Statistic.Referee),
+            nameof(Statistic.Hs),
+            nameof(Statistic.As),
+            nameof(Statistic.Hst),
+            nameof(Statistic.Ast),
+            nameof(Statistic.Hf),
+            nameof(Statistic.Af),
+            nameof(Statistic.Hc),
+            nameof(Statistic.Ac),
+            nameof(Statistic.Hy),
+            nameof(Statistic.Ay),
+            nameof(Statistic.Hr),
+            nameof(Statistic.Ar),
+        };
+
+
+
+        private readonly string[] OddsProps = new[]
+        {
+            nameof(Statistic.B365h),
+            nameof(Statistic.B365d),
+            nameof(Statistic.B365a),
+            nameof(Statistic.Bwh),
+            nameof(Statistic.Bwd),
+            nameof(Statistic.Bwa),
+            nameof(Statistic.Iwh),
+            nameof(Statistic.Iwd),
+            nameof(Statistic.Iwa),
+            nameof(Statistic.Lbh),
+            nameof(Statistic.Lbd),
+            nameof(Statistic.Lba),
+            nameof(Statistic.Psh),
+            nameof(Statistic.Psd),
+            nameof(Statistic.Psa),
+            nameof(Statistic.Whh),
+            nameof(Statistic.Whd),
+            nameof(Statistic.Wha),
+            nameof(Statistic.Vch),
+            nameof(Statistic.Vcd),
+            nameof(Statistic.Vca),
+            nameof(Statistic.Bb1X2),
+            nameof(Statistic.BbMxH),
+            nameof(Statistic.BbAvH),
+            nameof(Statistic.BbMxD),
+            nameof(Statistic.BbAvD),
+            nameof(Statistic.BbMxA),
+            nameof(Statistic.BbAvA),
+            nameof(Statistic.BbOu),
+            nameof(Statistic.BbMx251),
+            nameof(Statistic.BbAv251),
+            nameof(Statistic.BbMx25),
+            nameof(Statistic.BbAv25),
+            nameof(Statistic.BbAh),
+            nameof(Statistic.BbAhh),
+            nameof(Statistic.BbMxAhh),
+            nameof(Statistic.BbAvAhh),
+            nameof(Statistic.BbMxAha),
+            nameof(Statistic.BbAvAha),
+            nameof(Statistic.Psch),
+            nameof(Statistic.Pscd),
+            nameof(Statistic.Psca),
+        };
+
+     
+
         public HomeController(StatsDbContext statsDbContext)
         {
             this.statsDbContext = statsDbContext;
