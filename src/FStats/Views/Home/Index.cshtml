@@ -1,8 +1,71 @@
-﻿@model FStats.Models.StatsViewModel
+﻿@using FStats.Controllers
+@model FStats.Models.StatsViewModel
 
 @{
     ViewData["Title"] = "Footbal Stats";
+    var propsToView = HomeController.PropertyInfos.Where(x => HomeController.FixedProps.Contains(x.Name) ||
+                    Model.StatsProps.Contains(x.Name) || Model.OddsProps.Contains(x.Name)).ToList();
 }
 <div>
-    
+    <form method="GET" action="@Url.Action("Index", "Home")" class="form-horizontal">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    @foreach (var prop in propsToView)
+                    {
+                        <th>@prop.Name</th>
+                    }
+                </tr>
+
+                @foreach (var stat in Model.Stats)
+            {
+                    <tr>
+                        @foreach (var prop in propsToView)
+                        {
+                            <td>
+                                @prop.GetValue(stat)
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Stats</h4>
+                <div class="form-group">
+                    @foreach (var stat in HomeController.StatsProps)
+                    {
+                        <div class="checkbox">
+                            <label class="" title="@HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text">
+                                <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty) />
+                                @HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Load</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4>Odds</h4>
+                <div class="form-group">
+                    @foreach (var stat in HomeController.OddsProps)
+                    {
+                        <div class="checkbox">
+                            <label title="@HomeController.PropertyInfosSelect.First(x=>x.Value == stat).Text">
+                                <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty) />
+                                @HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Load</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
 </div>

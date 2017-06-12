@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FStats.Controllers
 {
+    using System.ComponentModel;
     using System.Reflection;
     using Entities;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,21 +16,13 @@ namespace FStats.Controllers
     {
         private readonly StatsDbContext statsDbContext;
 
-        private readonly IList<SelectListItem> propertyInfos =
-            typeof(Statistic).GetProperties().Select(x => new SelectListItem()
-            {
-                Text = x.Name,
-                Value = x.Name
-            }).ToList();
+        public static readonly IList<PropertyInfo> PropertyInfos;
 
-        private readonly string[] FixedProps = new[]
-        {
-            nameof(Statistic.Date), nameof(Statistic.HomeTeam), nameof(Statistic.AwayTeam), nameof(Statistic.Fthg),
-            nameof(Statistic.Ftag)
-        };
+        public static readonly IList<SelectListItem> PropertyInfosSelect;
 
+        public static readonly IList<string> FixedProps;
 
-        private readonly string[] StatsProps = new[]
+        public static readonly string[] StatsProps = new[]
         {
             nameof(Statistic.Fthg),
             nameof(Statistic.Ftag),
@@ -52,9 +45,7 @@ namespace FStats.Controllers
             nameof(Statistic.Ar),
         };
 
-
-
-        private readonly string[] OddsProps = new[]
+        public static readonly string[] OddsProps = new[]
         {
             nameof(Statistic.B365h),
             nameof(Statistic.B365d),
@@ -100,21 +91,37 @@ namespace FStats.Controllers
             nameof(Statistic.Psca),
         };
 
-     
+
 
         public HomeController(StatsDbContext statsDbContext)
         {
             this.statsDbContext = statsDbContext;
         }
 
-        public IActionResult Index()
+        static HomeController()
+        {
+            PropertyInfosSelect = typeof(Statistic).GetProperties().Select(x => new SelectListItem()
+            {
+                Text = $"{x.Name} - {x.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName}",
+                Value = x.Name
+            }).ToList();
+            PropertyInfos = typeof(Statistic).GetProperties();
+            FixedProps = new List<string>
+            {
+                nameof(Statistic.Date), nameof(Statistic.HomeTeam), nameof(Statistic.AwayTeam), nameof(Statistic.Fthg),
+                nameof(Statistic.Ftag)
+            };
+        }
+
+        public IActionResult Index(StatsViewModel inModel)
         {
             var stats = this.statsDbContext.Statistic.Take(10).ToList();
 
             var model = new StatsViewModel()
             {
-                AllProps = this.propertyInfos,
-                FixedProps = this.FixedProps
+                StatsProps = inModel.StatsProps ?? new List<string>() { nameof(Statistic.Fthg), nameof(Statistic.Ftag) },
+                OddsProps = inModel.OddsProps ?? new List<string>(),
+                Stats = stats
             };
 
             return View(model);
