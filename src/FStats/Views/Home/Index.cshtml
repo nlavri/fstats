@@ -1,4 +1,5 @@
 ﻿@using FStats.Controllers
+@using FStats.Entities
 @model FStats.Models.StatsViewModel
 
 @{
@@ -105,7 +106,14 @@
                         @foreach (var prop in propsToView)
                         {
                             <td>
-                                @prop.GetValue(stat)
+                                @if (prop.Name == nameof(Statistic.Date))
+                                {
+                                    @(((DateTime?)prop.GetValue(stat))?.ToString("dd/MM/yy"))
+                                }
+                                else
+                                {
+                                    @prop.GetValue(stat)
+                                }
                             </td>
                         }
                     </tr>
