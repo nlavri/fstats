@@ -11,7 +11,7 @@ namespace FStats.Entities
         public string Div { get; set; }
 
         [DisplayName("Date")]
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
 
         [DisplayName("Home Team")]
         public string HomeTeam { get; set; }
