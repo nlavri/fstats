@@ -8,6 +8,83 @@
 }
 <div>
     <form method="GET" action="@Url.Action("Index", "Home")" class="form-horizontal">
+        <div class="modal fade" tabindex="-1" role="dialog" id="statsModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Statistics</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                @foreach (var stat in HomeController.StatsProps)
+                                {
+                                    <div class="checkbox">
+                                        <label class="" title="@HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text">
+                                            <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty) />
+                                            @HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Load</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog" id="oddsModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Odds</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                @foreach (var stat in HomeController.OddsProps.Take(HomeController.OddsProps.Length / 2))
+                                {
+                                    <div class="checkbox">
+                                        <label title="@HomeController.PropertyInfosSelect.First(x=>x.Value == stat).Text">
+                                            <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty) />
+                                            @HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                @foreach (var stat in HomeController.OddsProps.Skip(HomeController.OddsProps.Length / 2))
+                                {
+                                    <div class="checkbox">
+                                        <label title="@HomeController.PropertyInfosSelect.First(x=>x.Value == stat).Text">
+                                            <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty) />
+                                            @HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Load</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#statsModal">
+                Statistics
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#oddsModal">
+                Odds
+            </button>
+        </div>
         <div class="table-responsive">
             <table class="table">
                 <tr>
@@ -18,7 +95,7 @@
                 </tr>
 
                 @foreach (var stat in Model.Stats)
-            {
+                {
                     <tr>
                         @foreach (var prop in propsToView)
                         {
@@ -30,42 +107,5 @@
                 }
             </table>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h4>Stats</h4>
-                <div class="form-group">
-                    @foreach (var stat in HomeController.StatsProps)
-                    {
-                        <div class="checkbox">
-                            <label class="" title="@HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text">
-                                <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty) />
-                                @HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text
-                            </label>
-                        </div>
-                    }
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Load</button>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h4>Odds</h4>
-                <div class="form-group">
-                    @foreach (var stat in HomeController.OddsProps)
-                    {
-                        <div class="checkbox">
-                            <label title="@HomeController.PropertyInfosSelect.First(x=>x.Value == stat).Text">
-                                <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty) />
-                                @HomeController.PropertyInfosSelect.First(x => x.Value == stat).Text
-                            </label>
-                        </div>
-                    }
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Load</button>
-                </div>
-            </div>
-        </div>
-
     </form>
 </div>
