@@ -102,7 +102,7 @@ namespace FStats.Controllers
         {
             PropertyInfosSelect = typeof(Statistic).GetProperties().Select(x => new SelectListItem()
             {
-                Text = $"{x.Name} {x.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName}",
+                Text = $"{x.Name} - {x.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName}",
                 Value = x.Name
             }).ToList();
             PropertyInfos = typeof(Statistic).GetProperties();
