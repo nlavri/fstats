@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace FStats
 {
+    using Entities;
+    using Microsoft.EntityFrameworkCore;
+
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -29,6 +32,14 @@ namespace FStats
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddDbContext<StatsDbContext>(options =>
+            {
+                var connectionString = this.Configuration.GetConnectionString("fstats");
+                options.UseSqlServer(connectionString, db =>
+                {
+                }).EnableSensitiveDataLogging();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,15 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FStats.Entities
 {
-    public partial class StatsDbContext : DbContext
+    public class StatsDbContext : DbContext
     {
-        public virtual DbSet<Statistic> Statistic { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public StatsDbContext(DbContextOptions<StatsDbContext> options) : base(options)
         {
-            #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Server=(local);Database=fstats;Trusted_Connection=True;");
+
         }
+
+        public virtual DbSet<Statistic> Statistic { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
