@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace FStats.Entities
 {
- 
+
     public partial class Statistic
     {
         [DisplayName("Contest")]
@@ -36,7 +36,7 @@ namespace FStats.Entities
 
         [DisplayName("Half Time Result(H= Home Win, D= Draw, A= Away Win)")]
         public string Htr { get; set; }
-        
+
         [DisplayName("Match Referee")]
         public string Referee { get; set; }
 
@@ -78,28 +78,6 @@ namespace FStats.Entities
 
 
 
-
-
-
-
-
-
-//SOH = Sporting Odds home win odds
-//SOD = Sporting Odds draw odds
-//SOA = Sporting Odds away win odds
-//SBH = Sportingbet home win odds
-//SBD = Sportingbet draw odds
-//SBA = Sportingbet away win odds
-//SJH = Stan James home win odds
-//SJD = Stan James draw odds
-//SJA = Stan James away win odds
-//SYH = Stanleybet home win odds
-//SYD = Stanleybet draw odds
-//SYA = Stanleybet away win odds
-//VCH = VC Bet home win odds
-//VCD = VC Bet draw odds
-//VCA = VC Bet away win odds
-
         [DisplayName("Bet365 home win odds")]
         public double? B365h { get; set; }
 
@@ -122,7 +100,7 @@ namespace FStats.Entities
 
         [DisplayName("Interwetten home win odds")]
         public double? Iwh { get; set; }
-        
+
         [DisplayName("Interwetten draw odds")]
         public double? Iwd { get; set; }
 
@@ -170,29 +148,70 @@ namespace FStats.Entities
         public double? Vca { get; set; }
 
 
+
+        [DisplayName("Number of BetBrain bookmakers used to calculate match odds averages and maximums")]
         public double? Bb1X2 { get; set; }
 
+        [DisplayName("Betbrain maximum home win odds")]
         public double? BbMxH { get; set; }
 
+        [DisplayName("Betbrain average home win odds")]
         public double? BbAvH { get; set; }
+
+        [DisplayName("Betbrain maximum draw odds)]
         public double? BbMxD { get; set; }
+
+        [DisplayName("Betbrain average draw win odds")]
         public double? BbAvD { get; set; }
+
+        [DisplayName("Betbrain maximum away win odds")]
         public double? BbMxA { get; set; }
+
+        [DisplayName("Betbrain average away win odds")]
         public double? BbAvA { get; set; }
+
+        [DisplayName("Number of BetBrain bookmakers used to calculate over/under 2.5 goals(total goals) averages and maximums")]
         public double? BbOu { get; set; }
+
+        [DisplayName("Betbrain maximum over 2.5 goals")]
         public double? BbMx251 { get; set; }
+
+        [DisplayName("Betbrain average over 2.5 goals")]
         public double? BbAv251 { get; set; }
+
+        [DisplayName("Betbrain maximum under 2.5 goals")]
         public double? BbMx25 { get; set; }
+
+        [DisplayName("Betbrain average under 2.5 goals")]
         public double? BbAv25 { get; set; }
+
+        [DisplayName("Number of BetBrain bookmakers used to Asian handicap averages and maximums")]
         public double? BbAh { get; set; }
+
+        [DisplayName("Betbrain size of handicap (home team)")]
         public double? BbAhh { get; set; }
+
+        [DisplayName("Betbrain maximum Asian handicap home team odds")]
         public double? BbMxAhh { get; set; }
+
+        [DisplayName("Betbrain average Asian handicap home team odds")]
         public double? BbAvAhh { get; set; }
+
+        [DisplayName("Betbrain maximum Asian handicap away team oddss")]
         public double? BbMxAha { get; set; }
+
+        [DisplayName("Betbrain average Asian handicap away team odds")]
         public double? BbAvAha { get; set; }
+
+        [DisplayName("Pinnacle closing home win odds")]
         public double? Psch { get; set; }
+
+        [DisplayName("Pinnacle closing draw odds")]
         public double? Pscd { get; set; }
+
+        [DisplayName("Pinnacle closing away win odds")]
         public double? Psca { get; set; }
+
         public int Id { get; set; }
     }
 }
