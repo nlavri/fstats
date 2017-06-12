@@ -6,11 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FStats.Controllers
 {
+    using System.Reflection;
     using Entities;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models;
 
     public class HomeController : Controller
     {
         private readonly StatsDbContext statsDbContext;
+
+        private readonly IList<SelectListItem> propertyInfos =
+            typeof(Statistic).GetProperties().Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Name
+            }).ToList();
+
+        private readonly string[] FixedProps = new[]
+        {
+            nameof(Statistic.Date), nameof(Statistic.HomeTeam), nameof(Statistic.AwayTeam), nameof(Statistic.Fthg),
+            nameof(Statistic.Ftag)
+        };
+
 
         public HomeController(StatsDbContext statsDbContext)
         {
@@ -20,7 +37,14 @@ namespace FStats.Controllers
         public IActionResult Index()
         {
             var stats = this.statsDbContext.Statistic.Take(10).ToList();
-            return View();
+
+            var model = new StatsViewModel()
+            {
+                AllProps = this.propertyInfos,
+                FixedProps = this.FixedProps
+            };
+
+            return View(model);
         }
 
         public IActionResult Error()
