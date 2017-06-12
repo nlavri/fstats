@@ -101,7 +101,7 @@
                 <tr>
                     @foreach (var prop in propsToView)
                     {
-                        <th>@prop.Name</th>
+                        <th title="@HomeController.PropertyInfosSelect.First(x => x.Value == prop.Name).Text">@prop.Name</th>
                     }
                 </tr>
 
