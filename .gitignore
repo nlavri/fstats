@@ -239,3 +239,6 @@ ModelManifest.xml
 .paket/paket.exe
 
 
+/src/FStats/*.user
+/src/FStats/wwwroot/css/site.min.css
+/src/FStats/wwwroot/js/site.min.js
