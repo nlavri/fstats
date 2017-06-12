@@ -201,5 +201,6 @@
 "C:\Projects\fstats\src\FStats\Program.cs"
 "C:\Projects\fstats\src\FStats\Startup.cs"
 "C:\Projects\fstats\src\FStats\Controllers\HomeController.cs"
+"C:\Projects\fstats\src\FStats\Entities\fstatsContext.cs"
 "C:\Projects\fstats\src\FStats\Entities\Statistic.cs"
 "C:\Projects\fstats\src\FStats\Entities\StatsDbContext.cs"
