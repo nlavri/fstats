@@ -159,6 +159,52 @@ namespace FStats.Controllers
             return View(model);
         }
 
+
+        public IActionResult TeamStats(string name)
+        {
+            var teamStatsData =
+                this.statsDbContext.Statistic.Where(x => x.HomeTeam == name || x.AwayTeam == name)
+                    .OrderByDescending(x => x.Date)
+                    .Take(10)
+                    .ToList();
+
+            var model = new TeamStatsModel()
+            {
+                Name = name
+            };
+
+            model.WinsCount = teamStatsData.Count(
+                x =>
+                    x.HomeTeam == name
+                        ? x.Ftr.Equals("H", StringComparison.OrdinalIgnoreCase)
+                        : x.Ftr.Equals("A", StringComparison.OrdinalIgnoreCase));
+
+            model.LooseCount = teamStatsData.Count(
+                x =>
+                    x.HomeTeam == name
+                        ? x.Ftr.Equals("A", StringComparison.OrdinalIgnoreCase)
+                        : x.Ftr.Equals("H", StringComparison.OrdinalIgnoreCase));
+
+            model.DrawsCount = teamStatsData.Count(
+                x => x.Ftr.Equals("D", StringComparison.OrdinalIgnoreCase));
+
+            model.HomeGoals = teamStatsData.Sum(
+                x =>
+                    x.HomeTeam == name
+                        ? x.Fthg ?? 0
+                        : 0);
+
+            model.AwayGoals = teamStatsData.Sum(
+                x =>
+                    x.HomeTeam == name
+                        ? x.Ftag ?? 0
+                        : 0);
+
+            model.Games = teamStatsData;
+
+            return PartialView(model);
+        }
+
         private IList<SelectListItem> GetOrderOptions()
         {
             return new List<SelectListItem>() {

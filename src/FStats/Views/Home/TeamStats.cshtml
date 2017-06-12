@@ -1,0 +1,27 @@
+﻿@using FStats.Controllers
+@using FStats.Entities
+@model FStats.Models.TeamStatsModel
+
+<h5><strong>Results</strong></h5>
+<span class="">Win: </span><label class="label label-success">@Model.WinsCount</label>&nbsp;&nbsp;&nbsp;
+<span class="">Lose: </span><label class="label label-danger">@Model.LooseCount</label>&nbsp;&nbsp;&nbsp;
+<span class="">Draw: </span><label class="label label-warning">@Model.DrawsCount</label>
+<h5><strong>Goals</strong></h5>
+<span class="">Home Goals: </span><label class="label label-info">@Model.HomeGoals</label>&nbsp;&nbsp;&nbsp;
+<span class="">Away Goals: </span><label class="label label-info">@Model.AwayGoals</label>&nbsp;&nbsp;&nbsp;
+<h5><strong>Last 10 Matches</strong></h5>
+@foreach (var match in Model.Games)
+{
+    <div class="row">
+        <div class="col-xs-6">
+            <small class="pull-right">
+                @match.HomeTeam <b>@match.Fthg</b>
+            </small>
+        </div>
+        <div class="col-xs-6">
+            <small class="pull-left">
+                <b>@match.Ftag</b> @match.AwayTeam
+            </small>
+        </div>
+    </div>
+}
