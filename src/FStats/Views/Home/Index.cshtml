@@ -1,8 +1,54 @@
-﻿@model FStats.Models.StatsViewModel
+﻿@using FStats.Controllers
+@model FStats.Models.StatsViewModel
 
 @{
     ViewData["Title"] = "Footbal Stats";
+    var propsToView = HomeController.PropertyInfos.Where(x => HomeController.FixedProps.Contains(x.Name) ||
+                    Model.StatsProps.Contains(x.Name) || Model.OddsProps.Contains(x.Name)).ToList();
 }
 <div>
-    
+    <form method="GET" action="@Url.Action("Index", "Home")">
+        <div>
+            <h4>Stats</h4>
+            @foreach (var stat in HomeController.StatsProps)
+            {
+                <label>
+                    <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty)/>
+                    @stat
+                </label>
+            }
+            <button type="submit">Load</button>
+        </div>
+        <div>
+            <h4>Odds</h4>
+            @foreach (var stat in HomeController.OddsProps)
+            {
+                <label>
+                    <input type="checkbox" name="@nameof(Model.StatsProps)" value="@stat" @(Model.StatsProps.Contains(stat) ? "checked=\"checked\"" : string.Empty)/>
+                    @stat
+                </label>
+            }
+            <button type="submit">Load</button>
+        </div>
+        <table>
+            <tr>
+                @foreach (var prop in propsToView)
+                {
+                    <th>@prop.Name</th>
+                }
+            </tr>
+
+            @foreach (var stat in Model.Stats)
+            {
+                <tr>
+                    @foreach (var prop in propsToView)
+                    {
+                        <td>
+                            @prop.GetValue(stat)
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </form>
 </div>
