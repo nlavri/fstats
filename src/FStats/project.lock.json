@@ -6408,7 +6408,7 @@
       ]
     },
     "System.ComponentModel.Annotations/4.3.0": {
-      "sha512": "Ew5VzOEJh3HlLYNCBobt5TYDoZV8o5PCtbDq89q9iLNpwhcGIezO7IjEw6bBpVfzGuWpxGr9XytSkCDstaPs0A==",
+      "sha512": "SY2RLItHt43rd8J9D8M8e8NM4m+9WLN2uUd9G0n1I4hj/7w+v3pzK6ZBjexlG1/2xvLKQsqir3UGVSyBTXMLWA==",
       "type": "package",
       "path": "System.ComponentModel.Annotations/4.3.0",
       "files": [
@@ -7964,7 +7964,7 @@
       ]
     },
     "System.Linq.Queryable/4.3.0": {
-      "sha512": "vTx2eyoZ0mSS8FUJpsyoa8n0phye61pKcTx9S+pDqFDNhwv64FMwsgpeWqZZyGenVZG0xClecWpXjFCG+1JEvw==",
+      "sha512": "In1Bmmvl/j52yPu3xgakQSI0YIckPUr870w4K5+Lak3JCCa8hl+my65lABOuKfYs4ugmZy25ScFerC4nz8+b6g==",
       "type": "package",
       "path": "System.Linq.Queryable/4.3.0",
       "files": [

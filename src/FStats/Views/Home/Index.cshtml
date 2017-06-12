@@ -30,10 +30,10 @@
                 }
             </table>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row padding-15">
+            <div class="col-md-5">
                 <h4>Stats</h4>
-                <div class="form-group">
+                <div class="form-group stats-column">
                     @foreach (var stat in HomeController.StatsProps)
                     {
                         <div class="checkbox">
@@ -48,9 +48,9 @@
                     <button type="submit" class="btn btn-primary">Load</button>
                 </div>
             </div>
-            <div class="col-md-6">
-                <h4>Odds</h4>
-                <div class="form-group">
+            <div class="col-md-5 col-md-offset-2">
+                <h4>Odds</h4> 
+                <div class="form-group stats-column">
                     @foreach (var stat in HomeController.OddsProps)
                     {
                         <div class="checkbox">

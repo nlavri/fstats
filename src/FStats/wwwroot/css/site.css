@@ -35,4 +35,13 @@ textarea {
   .carousel-caption {
     display: none
   }
+
+  }
+
+.padding-15 {
+    padding: 15px; 
+  }
+
+.stats-column {
+    overflow-y: scroll; height: 200px
 }
