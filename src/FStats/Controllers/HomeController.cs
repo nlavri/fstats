@@ -115,8 +115,24 @@ namespace FStats.Controllers
 
         public IActionResult Index(StatsViewModel inModel)
         {
-            var stats = this.statsDbContext.Statistic.Take(10).ToList();
+            ViewBag.OrderOptions = GetOrderOptions();
 
+            IQueryable<Statistic> statsQ = this.statsDbContext.Statistic;
+            switch (inModel.OrderBy)
+            {
+                case "date":
+                    statsQ = statsQ.OrderBy(x => x.Date);
+                    break;
+                case "home":
+                    statsQ = statsQ.OrderBy(x => x.HomeTeam);
+                    break;
+                case "away":
+                    statsQ = statsQ.OrderBy(x => x.AwayTeam);
+                    break;
+
+            }
+
+            var stats = statsQ.Take(10).ToList();
             var model = new StatsViewModel()
             {
                 StatsProps = inModel.StatsProps ?? new List<string>() { nameof(Statistic.Fthg), nameof(Statistic.Ftag) },
@@ -125,6 +141,16 @@ namespace FStats.Controllers
             };
 
             return View(model);
+        }
+
+        private IList<SelectListItem> GetOrderOptions()
+        {
+            return new List<SelectListItem>() {
+                    new SelectListItem() { Text = "----", Value = null},
+                    new SelectListItem() { Text = "Order by date", Value = "date"},
+                    new SelectListItem() { Text = "Order by home team", Value = "home"},
+                    new SelectListItem() { Text = "Order by away team", Value = "away"},
+                };
         }
 
         public IActionResult Error()

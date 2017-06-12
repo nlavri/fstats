@@ -15,5 +15,7 @@ namespace FStats.Models
         public List<string> StatsProps { get; set; }
 
         public List<Statistic> Stats { get; set; }
+
+        public string OrderBy { get; set; }
     }
 }
