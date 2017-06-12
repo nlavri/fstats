@@ -84,6 +84,7 @@
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#oddsModal">
                 Odds
             </button>
+            @Html.DropDownList("OrderBy", (IList<SelectListItem>)ViewBag.OrderOptions)
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -109,3 +110,8 @@
         </div>
     </form>
 </div>
+
+@section scripts
+{
+    <script src="~/js/home.js" asp-append-version="true"></script>
+}
