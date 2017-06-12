@@ -1,0 +1,57 @@
+﻿@using FStats.Infra
+@using FStats.Models
+@using Microsoft.AspNetCore.Html
+@model FStats.Models.FilterModel
+
+@{
+    Func<int, string> PageUrl = pageIndex => Url.RouteUrl(Context.Request.Query.ToRouteValueDictionary("skip", (pageIndex - 1) * Model.Take));
+
+    Func<string, IHtmlContent> FastNavigationItemName = @<span aria-hidden="true">@Html.Raw(item)</span>;
+
+    Func<dynamic, IHtmlContent> EnabledFastNavigationItem =
+        @<li>
+            <a href="@PageUrl(item.PageIndex)" aria-label="@item.Title" title="@item.Title">@FastNavigationItemName(item.Name)</a>
+        </li>;
+
+    Func<dynamic, IHtmlContent> DisabledFastNavigationItem =
+        @<li class="disabled">
+            <span aria-label="@item.Title" title="@item.Title">@FastNavigationItemName(item.Name)</span>
+        </li>;
+
+    Func<dynamic, IHtmlContent> FastNavigationItem = x => x.IsEnabled ? EnabledFastNavigationItem(x) : DisabledFastNavigationItem(x);
+
+}
+
+<ul class="pagination hidden-xs">
+    @FastNavigationItem(new { PageIndex = 1, IsEnabled = Model.CurrentPage > 1, Name = "«", Title = "First" })
+    @FastNavigationItem(new { PageIndex = Model.CurrentPage - 1, IsEnabled = Model.CurrentPage > 1, Name = "‹", Title = "Previous" })
+
+    @for (var p = Model.CurrentPage - 2; p <= Model.CurrentPage + 2; p++)
+    {
+        if (p == Model.CurrentPage)
+        {
+            <li class="active">
+                <span>@p <span class="sr-only">(current)</span></span>
+            </li>
+        }
+        else
+        {
+            if (p > 0 && p <= Model.PageCount)
+            {
+                <li><a href="@PageUrl(p)">@p</a></li>
+            }
+        }
+    }
+
+    @FastNavigationItem(new { PageIndex = Model.CurrentPage + 1, IsEnabled = Model.CurrentPage < Model.PageCount, Name = "›", Title = "Next" })
+    @FastNavigationItem(new { PageIndex = Model.PageCount, IsEnabled = Model.CurrentPage < Model.PageCount, Name = "»", Title = "Last" })
+</ul>
+<div class="clearfix"></div>
+<ul class="pagination pagination-xs-bottom visible-xs-inline-block ">
+    @FastNavigationItem(new { PageIndex = 1, IsEnabled = Model.CurrentPage > 1, Name = "«", Title = "First" })
+    @FastNavigationItem(new { PageIndex = Model.CurrentPage - 1, IsEnabled = Model.CurrentPage > 1, Name = "‹", Title = "Previous" })
+
+   
+    @FastNavigationItem(new { PageIndex = Model.CurrentPage + 1, IsEnabled = Model.CurrentPage < Model.PageCount, Name = "›", Title = "Next" })
+    @FastNavigationItem(new { PageIndex = Model.PageCount, IsEnabled = Model.CurrentPage < Model.PageCount, Name = "»", Title = "Last" })
+</ul>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FStats.Controllers
 {
@@ -132,12 +133,27 @@ namespace FStats.Controllers
 
             }
 
-            var stats = statsQ.Take(10).ToList();
+            var total = statsQ.Count();
+
+            if (inModel.Skip.HasValue)
+            {
+                statsQ = statsQ.Skip(inModel.Skip.Value);
+            }
+
+            if (inModel.Take.HasValue)
+            {
+                statsQ = statsQ.Take(inModel.Take.Value);
+            }
+
+            var stats = statsQ.ToList();
             var model = new StatsViewModel()
             {
                 StatsProps = inModel.StatsProps ?? new List<string>() { nameof(Statistic.Fthg), nameof(Statistic.Ftag) },
                 OddsProps = inModel.OddsProps ?? new List<string>(),
-                Stats = stats
+                Stats = stats,
+                TotalCount = total,
+                Skip = inModel.Skip,
+                Take = inModel.Take
             };
 
             return View(model);

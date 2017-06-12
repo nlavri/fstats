@@ -8,7 +8,7 @@ namespace FStats.Models
     using Entities;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
-    public class StatsViewModel
+    public class StatsViewModel : FilterModel
     {
         public List<string> OddsProps { get; set; }
 
