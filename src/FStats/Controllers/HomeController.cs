@@ -23,6 +23,16 @@ namespace FStats.Controllers
 
         public static readonly IList<string> FixedProps;
 
+        public static readonly IList<KeyValuePair<FilterTypeEnum, string>> Filters = new List<KeyValuePair<FilterTypeEnum, string>>()
+        {
+                new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.AW, "Away team wins")   ,
+            new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.HW, "Home team wins"),
+            new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.AW1, "Away wins by 1 goal"),
+            new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.HW1, "Home wins by 1 goal"),
+            new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.AW2, "Away wins by 2 goal"),
+            new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.HW2, "Home wins by 1 goal")
+        };
+
         public static readonly string[] StatsProps = new[]
         {
             nameof(Statistic.Fthg),
