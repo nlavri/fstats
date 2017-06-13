@@ -3,6 +3,10 @@
         this.closest('form').submit();
     });
 
+    $('#clear').click(function() {
+        $('input[name="Filter"]').removeAttr('checked');
+    });
+
     $("[data-toggle=popover]").on('show.bs.popover',
         function() {
             var self = $(this);

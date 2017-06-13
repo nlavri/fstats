@@ -30,7 +30,7 @@ namespace FStats.Controllers
             new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.AW1, "Away wins by 1 goal"),
             new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.HW1, "Home wins by 1 goal"),
             new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.AW2, "Away wins by 2 goal"),
-            new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.HW2, "Home wins by 1 goal")
+            new KeyValuePair<FilterTypeEnum, string>(FilterTypeEnum.HW2, "Home wins by 2 goal")
         };
 
         public static readonly string[] StatsProps = new[]
@@ -143,30 +143,7 @@ namespace FStats.Controllers
 
             }
 
-            if (inModel.Filter.HasFlag(FilterTypeEnum.AW))
-            {
-                statsQ = statsQ.Where(x => x.Ftr == "A");
-            }
-            if (inModel.Filter.HasFlag(FilterTypeEnum.HW))
-            {
-                statsQ = statsQ.Where(x => x.Ftr == "H");
-            }
-            if (inModel.Filter.HasFlag(FilterTypeEnum.AW1))
-            {
-                statsQ = statsQ.Where(x => x.Ftag == x.Fthg + 1);
-            }
-            if (inModel.Filter.HasFlag(FilterTypeEnum.HW1))
-            {
-                statsQ = statsQ.Where(x => x.Fthg == x.Ftag + 1);
-            }
-            if (inModel.Filter.HasFlag(FilterTypeEnum.AW2))
-            {
-                statsQ = statsQ.Where(x => x.Ftag == x.Fthg + 2);
-            }
-            if (inModel.Filter.HasFlag(FilterTypeEnum.HW2))
-            {
-                statsQ = statsQ.Where(x => x.Fthg == x.Ftag + 2);
-            }
+            statsQ = AddFiltersQuery(inModel.Filter, statsQ);
 
             var total = statsQ.Count();
 
@@ -195,6 +172,84 @@ namespace FStats.Controllers
             return View(model);
         }
 
+        private IQueryable<Statistic> AddFiltersQuery(FilterTypeEnum filter, IQueryable<Statistic> statsQ)
+        {
+            Func<Statistic, bool> f = statistic => true;
+            bool n = false;
+            if (filter.HasFlag(FilterTypeEnum.AW))
+            {
+                var f1 = f;
+                n = true;
+                f = s => f1(s) && s.Ftr == "A";
+                //statsQ = statsQ.Where(x => x.Ftr == "A");
+            }
+            if (filter.HasFlag(FilterTypeEnum.HW))
+            {
+                var f1 = f;
+                if (n)
+                {
+                    f = s => f1(s) || s.Ftr == "H";
+                }
+                else
+                {
+                    f = s => f1(s) && s.Ftr == "H";
+                }
+                n = true;
+
+            }
+            if (filter.HasFlag(FilterTypeEnum.AW1))
+            {
+                var f1 = f;
+                if (n)
+                {
+                    f = s => f1(s) || s.Ftag == s.Fthg + 1;
+                }
+                else
+                {
+                    f = s => f1(s) && s.Ftag == s.Fthg + 1;
+                }
+                n = true;
+            }
+            if (filter.HasFlag(FilterTypeEnum.HW1))
+            {
+                var f1 = f;
+                if (n)
+                {
+                    f = s => f1(s) || s.Fthg == s.Ftag + 1;
+                }
+                else
+                {
+                    f = s => f1(s) && s.Fthg == s.Ftag + 1;
+                }
+                n = true;
+            }
+            if (filter.HasFlag(FilterTypeEnum.AW2))
+            {
+                var f1 = f;
+                if (n)
+                {
+                    f = s => f1(s) || s.Ftag == s.Fthg + 2;
+                }
+                else
+                {
+                    f = s => f1(s) && s.Ftag == s.Fthg + 2;
+                }
+                n = true;
+            }
+            if (filter.HasFlag(FilterTypeEnum.HW2))
+            {
+                var f1 = f;
+                if (n)
+                {
+                    f = s => f1(s) || s.Fthg == s.Ftag + 2;
+                }
+                else
+                {
+                    f = s => f1(s) && s.Fthg == s.Ftag + 2;
+                }
+            }
+            return statsQ.Where(x => f(x));
+        }
 
         public IActionResult TeamStats(string name)
         {
