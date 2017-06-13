@@ -8,7 +8,7 @@
                     Model.StatsProps.Contains(x.Name) || Model.OddsProps.Contains(x.Name)).ToList();
 }
 <div>
-    <form method="GET" action="@Url.Action("Index", "Home")" class="form-horizontal">
+    <form method="GET" action="@Url.Action("Index", "Home")" class="form-horizontal" id="form">
         <div class="modal fade" tabindex="-1" role="dialog" id="statsModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -59,10 +59,17 @@
                                 }
                             </div>
                         </div>
-                    </div>
+                        <div class="row" >
+                            <div class="col-xs-12">
+                                <div id="progress" class="progress">
+                                    <div id="bar" class="progress-bar-striped active"></div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Process</button>
-                        <button type="submit" id="clear" class="btn btn-info">Clear filter</button>
+                        <button type="button" id="process" class="btn btn-primary">Process</button>
+                        <button type="button" id="clear" class="btn btn-info">Clear filter</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
