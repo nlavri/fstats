@@ -124,7 +124,7 @@ namespace FStats.Controllers
             };
         }
 
-        public IActionResult Index(StatsViewModel inModel)
+        public async Task<IActionResult> Index(StatsViewModel inModel)
         {
             ViewBag.OrderOptions = GetOrderOptions();
 
@@ -162,6 +162,7 @@ namespace FStats.Controllers
                 OddsProps = inModel.OddsProps ?? new List<string>(),
                 Stats = stats,
                 TotalCount = total,
+                Filter = inModel.Filter,
                 Skip = inModel.Skip,
                 Take = inModel.Take
             };

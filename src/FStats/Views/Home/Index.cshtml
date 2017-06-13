@@ -49,10 +49,10 @@
                             <div class="col-xs-12">
                                 @foreach (var stat in HomeController.Filters)
                                 {
-                                    var selected = Model.Filter?.HasFlag(stat.Key);
+                                    var selected = Model.Filter.HasFlag(stat.Key);
                                     <div class="checkbox">
-                                        <label class="" title="@stat.Value">
-                                            <input type="checkbox" name="Filter" value="@stat.Key" @(selected == true ? "checked=\"checked\"" : string.Empty) />
+                                        <label class="" title="">
+                                            <input type="checkbox" name="Filter" value="@stat.Key.ToString()" @(selected == true ? "checked=\"checked\"" : string.Empty) />
                                             @stat.Value
                                         </label>
                                     </div>

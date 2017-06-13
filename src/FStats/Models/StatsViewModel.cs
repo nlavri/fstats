@@ -16,6 +16,6 @@ namespace FStats.Models
 
         public List<Statistic> Stats { get; set; }
 
-        public FilterTypeEnum? Filter { get; set; }
+        public FilterTypeEnum Filter { get; set; }
     }
 }
