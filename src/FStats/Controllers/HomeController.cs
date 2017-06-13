@@ -143,6 +143,31 @@ namespace FStats.Controllers
 
             }
 
+            if (inModel.Filter.HasFlag(FilterTypeEnum.AW))
+            {
+                statsQ = statsQ.Where(x => x.Ftr == "A");
+            }
+            if (inModel.Filter.HasFlag(FilterTypeEnum.HW))
+            {
+                statsQ = statsQ.Where(x => x.Ftr == "H");
+            }
+            if (inModel.Filter.HasFlag(FilterTypeEnum.AW1))
+            {
+                statsQ = statsQ.Where(x => x.Ftag == x.Fthg + 1);
+            }
+            if (inModel.Filter.HasFlag(FilterTypeEnum.HW1))
+            {
+                statsQ = statsQ.Where(x => x.Fthg == x.Ftag + 1);
+            }
+            if (inModel.Filter.HasFlag(FilterTypeEnum.AW2))
+            {
+                statsQ = statsQ.Where(x => x.Ftag == x.Fthg + 2);
+            }
+            if (inModel.Filter.HasFlag(FilterTypeEnum.HW2))
+            {
+                statsQ = statsQ.Where(x => x.Fthg == x.Ftag + 2);
+            }
+
             var total = statsQ.Count();
 
             if (inModel.Skip.HasValue)
